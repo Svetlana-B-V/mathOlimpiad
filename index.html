@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Международная университетская математическая олимпиада · 6 класс</title>
+  <!-- Tailwind CSS для адаптивной вёрстки -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Шрифт Inter с надёжными системными фолбэками -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-paper: #faf8f4;
+      --ink: #1e293b;
+      --ink-muted: #475569;
+      --harvard: #a51c30;
+      --berkeley: #003262;
+      --princeton: #e77500;
+      --emerald: #0f766e;
+      --gold: #d97706;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-paper);
+      color: var(--ink);
+      background-image: radial-gradient(#d6d3cb 0.85px, transparent 0.85px);
+      background-size: 22px 22px;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* Мягкие карточки в стиле математической тетради */
+    .olymp-card {
+      background: #ffffff;
+      border: 1px solid #e5e1d8;
+      border-radius: 1.25rem;
+      box-shadow: 0 6px 24px -8px rgba(30, 41, 59, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .olymp-card:hover {
+      box-shadow: 0 12px 30px -10px rgba(30, 41, 59, 0.13);
+    }
+
+    .lab-box {
+      background: linear-gradient(180deg, #fbfaf7 0%, #f5f2ea 100%);
+      border: 1px dashed #cfc9bc;
+      border-radius: 1rem;
+    }
+
+    /* Свечение фонарей в задаче 1 */
+    .lantern-glow {
+      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.85));
+    }
+
+    /* Анимация встряски для неверного ответа или конфликта карточек */
+    @keyframes gentleShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+
+    .shake-anim {
+      animation: gentleShake 0.35s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.92); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .pop-in {
+      animation: popIn 0.25s ease forwards;
+    }
+
+    /* Электронные часы в задаче 6 */
+    .digital-clock {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.08em;
+    }
+
+    /* Интерактивные линии разреза шоколадки */
+    .choc-cut-line {
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .choc-cut-line:hover .cut-visual {
+      stroke: #fbbf24;
+      stroke-width: 4;
+      opacity: 1;
+    }
+
+    /* Стили ползунков */
+    input[type="range"] {
+      accent-color: #0f766e;
+    }
+
+    /* Убираем стрелки у number input */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .tab-btn {
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background-color: #1e293b;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+    }
+
+    .tab-btn.active-gold {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- ===================================================================== -->
+  <!-- ШАПКА ПРИЛОЖЕНИЯ: ЛОГОТИП, ПРОГРЕСС-БАР, ТАЙМЕР И НАВИГАЦИЯ           -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-[#faf8f4]/95 backdrop-blur-md border-b border-[#e5e1d8] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        <!-- Название и эмблема -->
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#a51c30] via-[#003262] to-[#0f766e] flex items-center justify-center shadow-md shrink-0">
+            <svg class="w-6 h-6 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900 leading-tight">
+              Международная университетская олимпиада
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              Математика · 6 класс · По мотивам HMMT, BmMT, PUMaC, SMT, CMIMC, Caltech, MMATHS, CEMC
+            </p>
+          </div>
+        </div>
+
+        <!-- Прогресс и таймер -->
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+          <!-- Прогресс-бар -->
+          <div class="flex items-center gap-2.5 bg-white border border-[#e5e1d8] rounded-xl px-3.5 py-2 shadow-xs">
+            <div class="text-xs font-semibold text-slate-600 whitespace-nowrap">
+              Решено: <span id="solved-count" class="text-emerald-700 font-extrabold text-sm">0</span> / 12
+            </div>
+            <div class="w-24 sm:w-28 h-2.5 bg-slate-200 rounded-full overflow-hidden">
+              <div id="progress-bar" class="h-full bg-gradient-to-r from-[#0f766e] to-[#d97706] rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Таймер олимпиады -->
+          <div class="flex items-center gap-2 bg-white border border-[#e5e1d8] rounded-xl px-3 py-1.5 shadow-xs">
+            <svg class="w-4 h-4 text-[#a51c30]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/>
+            </svg>
+            <span id="timer-display" class="font-mono font-bold text-sm text-slate-800 w-12 text-center">00:00</span>
+            <button id="timer-toggle" onclick="toggleTimer()" class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer">
+              Пауза
+            </button>
+            <button onclick="resetTimer()" title="Сбросить таймер" class="text-xs font-semibold px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 transition cursor-pointer">
+              ↺
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Вкладки навигации -->
+      <nav class="flex flex-wrap gap-2 mt-3 pt-2.5 border-t border-[#ece8df]" role="tablist">
+        <button id="tab-overview" onclick="switchTab('overview')" class="tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold cursor-pointer bg-white border border-[#e5e1d8] text-slate-700 hover:bg-slate-50">
+          🏛️ Обзор турниров (8)
+        </button>
+        <button id="tab-block1" onclick="switchTab('block1')" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold cursor-pointer bg-white border border-[#e5e1d8] text-slate-700 hover:bg-slate-50">
+          🧭 Блок 1: Доступный олимпиадный (1–8)
+        </button>
+        <button id="tab-block2" onclick="switchTab('block2')" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold cursor-pointer bg-white border border-amber-300 text-amber-900 hover:bg-amber-50">
+          ★ Блок 2: Продвинутый уровень (9–12)
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- ОСНОВНОЙ КОНТЕНТ                                                      -->
+  <!-- ===================================================================== -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- ВКЛАДКА 1: ОБЗОР УНИВЕРСИТЕТСКИХ ТУРНИРОВ -->
+    <section id="section-overview" class="space-y-6">
+      <div class="olymp-card p-6 sm:p-8 bg-gradient-to-br from-white via-[#fffdf9] to-[#f8f4eb]">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="max-w-3xl">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#a51c30]/10 text-[#a51c30] mb-3">
+              Аналитика мировых олимпиад
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
+              Как устроены математические турниры ведущих университетов?
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Олимпиады при Гарварде, MIT, Беркли, Принстоне, Стэнфорде и других университетах ценят не зубрежку формул, а <strong>умение видеть красивые идеи</strong>: симметрию, инварианты, наглядную геометрию и логику. Мы адаптировали лучшие идеи этих турниров специально для 6 класса.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-2.5 shrink-0">
+            <button onclick="switchTab('block1')" class="px-5 py-3 rounded-xl bg-[#003262] hover:bg-[#002244] text-white font-bold text-sm shadow-md transition cursor-pointer">
+              Начать Блок 1 →
+            </button>
+            <button onclick="switchTab('block2')" class="px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm shadow-md transition cursor-pointer">
+              К задачам ★ →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточки 8 университетов -->
+      <div id="universities-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5"></div>
+
+      <!-- Памятка участника -->
+      <div class="olymp-card p-5 sm:p-6 bg-[#003262] text-white">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-2xl shrink-0">🧪</div>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Как работать с этой олимпиадой?</h3>
+            <p class="text-sm text-slate-200 leading-relaxed">
+              В каждой задаче есть <strong>интерактивная лаборатория</strong> — нажимай на фонари, складывай треугольники, прокладывай пути по графу и ломай шоколадку, чтобы нащупать закономерность. Если задача кажется трудной, нажми «Маленькая подсказка». Полные разборы решений находятся в отдельном документе для учителя/родителя.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ВКЛАДКА 2: БЛОК 1 (ЗАДАЧИ 1–8) -->
+    <section id="section-block1" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#e5e1d8]">
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900">Блок 1: Доступный олимпиадный уровень</h2>
+          <p class="text-sm text-slate-600">8 задач на логику, наглядную геометрию, делимость, графы и закономерности.</p>
+        </div>
+        <span class="inline-flex items-center px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold self-start">
+          Задачи №1 — №8
+        </span>
+      </div>
+      <div id="block1-container" class="space-y-6"></div>
+    </section>
+
+    <!-- ВКЛАДКА 3: БЛОК 2 (ЗАДАЧИ 9–12, ПРОДВИНУТЫЙ) -->
+    <section id="section-block2" class="hidden space-y-6">
+      <div class="olymp-card p-5 sm:p-6 bg-gradient-to-r from-amber-50 via-white to-amber-50/70 border-amber-300">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2.5 py-1 rounded-full mb-2">
+              ★ Повышенная сложность
+            </span>
+            <h2 class="text-2xl font-extrabold text-slate-900">Блок 2: Продвинутый уровень</h2>
+            <p class="text-sm text-slate-600 mt-1">
+              4 легендарные идеи олимпиадной математики: пространственное воображение, инварианты, принцип Дирихле и стратегия Guts Round.
+            </p>
+          </div>
+          <span class="inline-flex items-center px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold self-start">
+            Задачи №9 — №12 ★
+          </span>
+        </div>
+      </div>
+      <div id="block2-container" class="space-y-6"></div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-center text-xs text-slate-500 border-t border-[#e5e1d8] mt-8">
+    Международная университетская математическая олимпиада для 6 класса · Создано для увлечённых исследователей математики
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- ЛОГИКА ПРИЛОЖЕНИЯ И ВСЕХ 12 ИНТЕРАКТИВНЫХ ВИДЖЕТОВ                    -->
+  <!-- ===================================================================== -->
+  <script>
+    // =========================================================================
+    // 1. ДАННЫЕ: 8 УНИВЕРСИТЕТСКИХ ТУРНИРОВ И 12 ЗАДАЧ
+    // =========================================================================
+    const UNIVERSITIES = [
+      {
+        code: 'HMMT',
+        name: 'Harvard-MIT Mathematics Tournament',
+        place: 'Гарвард и MIT · США',
+        color: '#a51c30',
+        format: 'Индивидуальные раунды, Team Round и скоростной Guts Round',
+        teaches: 'Чётность, инварианты, комбинаторные игры и нестандартные ходы.',
+        tasks: [1, 9, 12]
+      },
+      {
+        code: 'BmMT',
+        name: 'Berkeley mini Math Tournament',
+        place: 'Университет Беркли · США',
+        color: '#003262',
+        format: 'Специальный формат для учеников средней школы (5–8 классы)',
+        teaches: 'Наглядную геометрию без сложных формул, разрезания и пространственные задачи.',
+        tasks: [2, 9]
+      },
+      {
+        code: 'PUMaC',
+        name: 'Princeton University Math Competition',
+        place: 'Принстонский университет · США',
+        color: '#e77500',
+        format: 'Тематические блоки: алгебра, комбинаторика, геометрия, теория чисел',
+        teaches: 'Уравнения через образы и весы, поиск скрытых инвариантов в движении.',
+        tasks: [3, 10]
+      },
+      {
+        code: 'SMT',
+        name: 'Stanford Math Tournament',
+        place: 'Стэнфордский университет · США',
+        color: '#8c1515',
+        format: 'Командная работа, прикладная математика и олимпиадная арифметика',
+        teaches: 'Признаки делимости, оценку и принцип Дирихле («ящики и кролики»).',
+        tasks: [4, 11]
+      },
+      {
+        code: 'CMIMC',
+        name: 'Carnegie Mellon Informatics & Math',
+        place: 'Университет Карнеги — Меллон · США',
+        color: '#b91c1c',
+        format: 'Сочетание классической математики, алгоритмов и графов',
+        teaches: 'Подсчёт маршрутов в графах, алгоритмическое мышление и перебор.',
+        tasks: [5, 10, 11]
+      },
+      {
+        code: 'Caltech',
+        name: 'Caltech Math Meet',
+        place: 'Калифорнийский технологический институт · США',
+        color: '#d97706',
+        format: 'Короткие, но очень изобретательные задачи с изюминкой',
+        teaches: 'Симметрию, палиндромы, аккуратный учёт всех ограничений.',
+        tasks: [6]
+      },
+      {
+        code: 'MMATHS',
+        name: 'Yale MMATHS',
+        place: 'Йельский университет · США',
+        color: '#0f4d92',
+        format: 'Индивидуальный тур, командная эстафета и логический микс',
+        teaches: 'Чистую логику, проверку гипотез и метод рассуждения от противного.',
+        tasks: [7]
+      },
+      {
+        code: 'CEMC',
+        name: 'CEMC Gauss Contest',
+        place: 'Университет Ватерлоо · Канада',
+        color: '#0f766e',
+        format: 'Международный конкурс для 6–8 классов с плавным ростом сложности',
+        teaches: 'Поиск закономерностей в таблицах, последовательностях и циклах.',
+        tasks: [8]
+      }
+    ];
+
+    const PROBLEMS = [
+      {
+        id: 1,
+        block: 1,
+        title: 'Фонари Гарварда',
+        uni: 'HMMT',
+        topic: 'Логика и чётность',
+        color: '#a51c30',
+        statement: 'Вдоль аллеи стоят 5 фонарей в ряд (№1–№5), все они сейчас выключены. Нажатие на любой фонарь переключает (включает или выключает) его самого и его ближайших соседей (у крайних фонарей 1 сосед, у средних — 2 соседа). За какое наименьшее число ходов можно зажечь все 5 фонарей?',
+        answer: 2,
+        unit: 'ходов',
+        hint: 'Попробуй скомбинировать один крайний фонарь с одним из дальних, чтобы их зоны действия не перекрывались.'
+      },
+      {
+        id: 2,
+        block: 1,
+        title: 'Сад Беркли',
+        uni: 'BmMT',
+        topic: 'Наглядная геометрия',
+        color: '#003262',
+        statement: 'На квадратной сетке 5×5 (площадь каждой клетки 1 см²) нарисован повёрнутый квадрат. Его вершины лежат на сторонах большого квадрата и делят каждую сторону на отрезки 2 см и 3 см — координаты вершин: (2,0), (5,2), (3,5), (0,3). Найдите площадь этого повёрнутого квадрата (в см²).',
+        answer: 13,
+        unit: 'см²',
+        hint: 'Вычти из площади большого квадрата 5×5 площади четырёх одинаковых треугольников по углам.'
+      },
+      {
+        id: 3,
+        block: 1,
+        title: 'Весы Принстона',
+        uni: 'PUMaC',
+        topic: 'Алгебра и логика',
+        color: '#e77500',
+        statement: 'В лаборатории есть Кубы, Шары и Пирамиды. На первых весах 2 Куба + 1 Шар уравновешивают 5 Пирамид. На вторых весах 1 Куб уравновешивает 1 Шар + 1 Пирамиду. Сколько Пирамид уравновесят 1 Куб?',
+        answer: 2,
+        unit: 'пирамид(ы)',
+        hint: 'Попробуй поставить на обе чаши первых весов по одной дополнительной Пирамиде, чтобы справа от Кубов получился Шар + Пирамида — то есть ещё один Куб!'
+      },
+      {
+        id: 4,
+        block: 1,
+        title: 'Цифровой замок Стэнфорда',
+        uni: 'SMT',
+        topic: 'Делимость',
+        color: '#8c1515',
+        statement: 'Четырёхзначный код от библиотеки имеет вид 3A5B (где A и B — цифры). Известно, что это число делится на 45 и является наибольшим возможным среди всех таких чисел. Какое это число?',
+        answer: 3555,
+        unit: '',
+        hint: 'Число делится на 45 тогда и только тогда, когда оно одновременно делится на 5 (оканчивается на 0 или 5) и на 9 (сумма цифр делится на 9).'
+      },
+      {
+        id: 5,
+        block: 1,
+        title: 'Мосты Карнеги — Меллона',
+        uni: 'CMIMC',
+        topic: 'Графы и пути',
+        color: '#b91c1c',
+        statement: 'В кампусе 4 корпуса: A, B, C, D. Дорожки с односторонним движением: от A к B ведут 2 дорожки, от A к C — 1, от B к C — 1, от B к D — 2, от C к D — 3. Сколькими различными способами можно добраться из A в D?',
+        answer: 13,
+        unit: 'способов',
+        hint: 'Посчитай отдельно пути вида A→B→D, A→C→D и A→B→C→D, а затем сложи результаты.'
+      },
+      {
+        id: 6,
+        block: 1,
+        title: 'Зеркальные часы Калтеха',
+        uni: 'Caltech',
+        topic: 'Симметрия и время',
+        color: '#d97706',
+        statement: 'На электронных 24-часовых часах (от 00:00 до 23:59) время иногда является палиндромом — читается одинаково слева направо и справа налево (например, 05:50 или 21:12). Сколько всего раз за сутки на часах появляется палиндром?',
+        answer: 16,
+        unit: 'раз',
+        hint: 'Не для каждого часа существует зеркальная минута — например, для 06 часов зеркальное «60» невозможно.'
+      },
+      {
+        id: 7,
+        block: 1,
+        title: 'Рыцари и Лжецы Йеля',
+        uni: 'MMATHS',
+        topic: 'Логика',
+        color: '#0f4d92',
+        statement: 'За столом сидят 4 студента: Аня, Боря, Вика и Глеб. Каждый либо Рыцарь (всегда говорит правду), либо Лжец (всегда врёт).\n• Аня: «Среди нас ровно один Лжец».\n• Боря: «Среди нас ровно два Лжеца».\n• Вика: «Боря и Глеб — оба Лжецы».\n• Глеб: «Аня — Рыцарь».\nСколько Лжецов за столом?',
+        answer: 3,
+        unit: 'лжеца(ов)',
+        hint: 'Посмотри на слова Ани и Бори — они не могут быть оба правы. Проверь варианты: 1, 2 или 3 лжеца.'
+      },
+      {
+        id: 8,
+        block: 1,
+        title: 'Числовая змейка Ватерлоо',
+        uni: 'CEMC Gauss',
+        topic: 'Закономерности',
+        color: '#0f766e',
+        statement: 'Робот вписывает числа 1, 2, 3, 4, ... в таблицу из 4 столбцов «змейкой»: 1-я строка слева направо (1, 2, 3, 4), 2-я справа налево (8, 7, 6, 5), 3-я слева направо (9, 10, 11, 12) и т.д. В каком столбце (1, 2, 3 или 4, считая слева направо) окажется число 100?',
+        answer: 4,
+        unit: 'столбец',
+        hint: 'В какой по счёту строке окажется число 100 (чётной или нечётной)?'
+      },
+      {
+        id: 9,
+        block: 2,
+        title: 'Тайна раскраски куба',
+        uni: 'HMMT / BmMT ★',
+        topic: 'Пространственное мышление',
+        color: '#d97706',
+        statement: 'Деревянный куб 4×4×4 покрасили снаружи синей краской, а затем распилили на 64 маленьких кубика 1×1×1. Сколько маленьких кубиков имеют ровно 2 покрашенные грани?',
+        answer: 24,
+        unit: 'кубиков',
+        hint: 'Кубики с ровно двумя окрашенными гранями находятся на рёбрах большого куба, но не в его вершинах. Сколько рёбер у куба?'
+      },
+      {
+        id: 10,
+        block: 2,
+        title: 'Муравьи на линейке',
+        uni: 'PUMaC / CMIMC ★',
+        topic: 'Инвариант',
+        color: '#d97706',
+        statement: 'На линейке длиной 100 см сидят 3 муравья: на отметке 20 см (ползёт вправо), на 45 см (ползёт влево) и на 70 см (ползёт влево). Скорость каждого — 1 см/с. При встрече два муравья мгновенно разворачиваются. Через сколько секунд с линейки упадут ВСЕ муравьи?',
+        answer: 80,
+        unit: 'секунд',
+        hint: 'Если муравьи не различаются, то их разворот при встрече выглядит точно так же, как если бы они просто прошли сквозь друг друга!'
+      },
+      {
+        id: 11,
+        block: 2,
+        title: 'Карточки с суммой 21',
+        uni: 'CMIMC / SMT ★',
+        topic: 'Принцип Дирихле',
+        color: '#d97706',
+        statement: 'В мешке лежат 20 карточек с числами от 1 до 20. Какое наименьшее число карточек нужно вытащить не глядя, чтобы гарантированно среди них нашлись две карточки с суммой 21?',
+        answer: 11,
+        unit: 'карточек',
+        hint: 'Разбей числа от 1 до 20 на пары с суммой 21: (1,20), (2,19) и т.д. Сколько всего таких пар?'
+      },
+      {
+        id: 12,
+        block: 2,
+        title: 'Шоколадка Guts Round',
+        uni: 'HMMT Guts ★',
+        topic: 'Игры и инварианты',
+        color: '#d97706',
+        statement: 'Алиса и Боб по очереди ломают шоколадку размером 5×6 долек. За один ход можно разломить любой один кусок по прямой линии вдоль сетки на два меньших прямоугольника. Проигрывает тот, кто не может сделать ход (когда остались только отдельные дольки 1×1). Сколько ВСЕГО разломов будет сделано до конца игры (независимо от ходов игроков)?',
+        answer: 29,
+        unit: 'разломов',
+        hint: 'Посмотри на интерактивную шоколадку 3×4: как изменяется общее количество кусков после КАЖДОГО разлома?'
+      }
+    ];
+
+    // =========================================================================
+    // 2. СОСТОЯНИЕ ПРОГРЕССА И ТАЙМЕРА
+    // =========================================================================
+    const solvedSet = new Set();
+    let timerSeconds = 0;
+    let timerRunning = true;
+    let timerInterval = null;
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (timerRunning) {
+          timerSeconds++;
+          updateTimerDisplay();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+      const s = String(timerSeconds % 60).padStart(2, '0');
+      document.getElementById('timer-display').textContent = `${m}:${s}`;
+    }
+
+    function toggleTimer() {
+      timerRunning = !timerRunning;
+      const btn = document.getElementById('timer-toggle');
+      btn.textContent = timerRunning ? 'Пауза' : 'Продолжить';
+    }
+
+    function resetTimer() {
+      timerSeconds = 0;
+      updateTimerDisplay();
+    }
+
+    function updateProgress() {
+      const count = solvedSet.size;
+      document.getElementById('solved-count').textContent = count;
+      document.getElementById('progress-bar').style.width = `${(count / 12) * 100}%`;
+    }
+
+    // =========================================================================
+    // 3. НАВИГАЦИЯ ПО ВКЛАДКАМ
+    // =========================================================================
+    function switchTab(tabName) {
+      ['overview', 'block1', 'block2'].forEach(t => {
+        document.getElementById(`section-${t}`).classList.toggle('hidden', t !== tabName);
+        const btn = document.getElementById(`tab-${t}`);
+        btn.classList.remove('active', 'active-gold');
+        if (t === tabName) {
+          btn.classList.add(t === 'block2' ? 'active-gold' : 'active');
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function jumpToTask(taskId) {
+      const prob = PROBLEMS.find(p => p.id === taskId);
+      if (!prob) return;
+      switchTab(prob.block === 1 ? 'block1' : 'block2');
+      setTimeout(() => {
+        const el = document.getElementById(`task-card-${taskId}`);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 120);
+    }
+
+    // =========================================================================
+    // 4. РЕНДЕР ВКЛАДКИ «ОБЗОР ТУРНИРОВ»
+    // =========================================================================
+    function renderUniversities() {
+      const container = document.getElementById('universities-grid');
+      container.innerHTML = UNIVERSITIES.map(u => `
+        <div class="olymp-card p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1.5" style="background:${u.color}"></div>
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-2 mt-1">
+              <div>
+                <span class="inline-block text-xs font-extrabold px-2.5 py-0.5 rounded-md text-white mb-1" style="background:${u.color}">
+                  ${u.code}
+                </span>
+                <h3 class="font-bold text-slate-900 text-base leading-snug">${u.name}</h3>
+                <p class="text-xs text-slate-500 font-medium">${u.place}</p>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 mt-2"><strong class="text-slate-800">Формат:</strong> ${u.format}.</p>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1.5"><strong class="text-slate-800">Чему учит 6 класс:</strong> ${u.teaches}</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
+            <span class="text-xs font-semibold text-slate-500 mr-1">Задачи в олимпиаде:</span>
+            ${u.tasks.map(tid => `
+              <button onclick="jumpToTask(${tid})" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-800 hover:text-white text-slate-700 transition cursor-pointer">
+                №${tid}${tid >= 9 ? ' ★' : ''}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // =========================================================================
+    // 5. РЕНДЕР КАРТОЧЕК ЗАДАЧ (БЛОК 1 И БЛОК 2)
+    // =========================================================================
+    function createProblemCardHTML(p) {
+      const isAdv = p.block === 2;
+      const statementHTML = p.statement.replace(/\n/g, '<br/>');
+      return `
+        <article id="task-card-${p.id}" class="olymp-card overflow-hidden ${isAdv ? 'border-amber-200' : ''}">
+          <div class="h-1.5 w-full" style="background:${p.color}"></div>
+          <div class="p-5 sm:p-7">
+            <!-- Шапка задачи -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-xl text-white font-extrabold text-sm shadow-xs" style="background:${p.color}">
+                  ${p.id}
+                </span>
+                <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">${p.title}</h3>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-xs font-bold px-2.5 py-1 rounded-lg text-white" style="background:${p.color}">
+                  ${p.uni}
+                </span>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
+                  ${p.topic}
+                </span>
+                <span id="solved-badge-${p.id}" class="hidden text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300">
+                  ✓ Решено
+                </span>
+              </div>
+            </div>
+
+            <!-- Условие -->
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-5">${statementHTML}</p>
+
+            <!-- Интерактивная лаборатория -->
+            <div class="lab-box p-4 sm:p-5 mb-5">
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                  <span>🔬</span> Интерактивная лаборатория
+                </span>
+              </div>
+              <div id="widget-${p.id}"></div>
+            </div>
+
+            <!-- Ввод ответа и подсказка -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <label for="ans-${p.id}" class="text-sm font-bold text-slate-700">Ответ:</label>
+                <div class="flex items-center gap-2">
+                  <input
+                    id="ans-${p.id}"
+                    type="number"
+                    inputmode="numeric"
+                    placeholder="Число"
+                    onkeydown="if(event.key==='Enter') checkAnswer(${p.id})"
+                    class="w-28 sm:w-32 px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-slate-800 font-bold text-slate-900 text-sm"
+                  />
+                  ${p.unit ? `<span class="text-xs font-medium text-slate-500">${p.unit}</span>` : ''}
+                </div>
+                <button onclick="checkAnswer(${p.id})" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition shadow-xs cursor-pointer">
+                  Проверить
+                </button>
+              </div>
+
+              <button onclick="toggleHint(${p.id})" class="self-start sm:self-auto px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-semibold text-xs sm:text-sm transition cursor-pointer">
+                💡 Маленькая подсказка
+              </button>
+            </div>
+
+            <!-- Обратная связь -->
+            <div id="feedback-${p.id}" class="hidden mt-3 px-4 py-2.5 rounded-xl text-sm font-bold"></div>
+
+            <!-- Блок подсказки -->
+            <div id="hint-${p.id}" class="hidden mt-3 px-4 py-3 rounded-xl bg-amber-50/90 border border-amber-200 text-amber-950 text-xs sm:text-sm leading-relaxed">
+              <strong class="font-bold">Подсказка:</strong> ${p.hint}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderAllProblemCards() {
+      const b1 = document.getElementById('block1-container');
+      const b2 = document.getElementById('block2-container');
+      b1.innerHTML = PROBLEMS.filter(p => p.block === 1).map(createProblemCardHTML).join('');
+      b2.innerHTML = PROBLEMS.filter(p => p.block === 2).map(createProblemCardHTML).join('');
+    }
+
+    // Проверка ответа
+    function checkAnswer(id) {
+      const prob = PROBLEMS.find(p => p.id === id);
+      const input = document.getElementById(`ans-${id}`);
+      const fb = document.getElementById(`feedback-${id}`);
+      const val = input.value.trim();
+
+      fb.classList.remove('hidden', 'shake-anim', 'pop-in', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-200', 'bg-rose-50', 'text-rose-800', 'border-rose-200');
+      fb.classList.add('border');
+
+      if (val === '') {
+        fb.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-200', 'shake-anim');
+        fb.textContent = 'Введи числовой ответ в поле слева.';
+        return;
+      }
+
+      if (Number(val) === prob.answer) {
+        solvedSet.add(id);
+        updateProgress();
+        document.getElementById(`solved-badge-${id}`).classList.remove('hidden');
+        fb.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-200', 'pop-in');
+        fb.textContent = 'Верно! 🎉 Отличная математическая идея!';
+        try { localStorage.setItem('olymp6_solved', JSON.stringify([...solvedSet])); } catch (e) {}
+      } else {
+        fb.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-200', 'shake-anim');
+        fb.textContent = 'Пока неточно — поэкспериментируй на схеме!';
+      }
+    }
+
+    function toggleHint(id) {
+      document.getElementById(`hint-${id}`).classList.toggle('hidden');
+    }
+
+    // =========================================================================
+    // 6. ИНТЕРАКТИВНЫЕ ВИДЖЕТЫ (ЗАДАЧИ 1–12)
+    // =========================================================================
+
+    // --- ВИДЖЕТ 1: Фонари Гарварда ---
+    const w1State = { lights: [false, false, false, false, false], moves: 0 };
+    function renderWidget1() {
+      const allOn = w1State.lights.every(Boolean);
+      const container = document.getElementById('widget-1');
+      container.innerHTML = `
+        <div class="flex flex-col items-center gap-4">
+          <div class="w-full max-w-xl bg-slate-900 rounded-2xl p-4 sm:p-6 shadow-inner relative overflow-hidden">
+            <svg viewBox="0 0 500 135" class="w-full h-auto select-none">
+              <!-- Земля аллеи -->
+              <rect x="10" y="114" width="480" height="8" rx="4" fill="#334155"/>
+              ${w1State.lights.map((on, i) => {
+                const cx = 60 + i * 95;
+                return `
+                  <g onclick="clickLantern(${i})" class="cursor-pointer group">
+                    <!-- Невидимая область клика -->
+                    <rect x="${cx - 38}" y="8" width="76" height="115" fill="transparent"/>
+                    <!-- Ореол света -->
+                    ${on ? `<circle cx="${cx}" cy="44" r="34" fill="#fbbf24" opacity="0.22"/>` : ''}
+                    <!-- Столб -->
+                    <rect x="${cx - 3}" y="58" width="6" height="56" fill="#64748b"/>
+                    <rect x="${cx - 10}" y="108" width="20" height="7" rx="2" fill="#475569"/>
+                    <!-- Плафон фонаря -->
+                    <path d="M${cx - 14} 32 L${cx + 14} 32 L${cx + 10} 58 L${cx - 10} 58 Z"
+                      fill="${on ? '#fde047' : '#334155'}"
+                      stroke="${on ? '#f59e0b' : '#64748b'}" stroke-width="2.5"
+                      class="${on ? 'lantern-glow' : ''}"/>
+                    <!-- Крышечка -->
+                    <path d="M${cx - 18} 32 Q${cx} 16 ${cx + 18} 32 Z" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+                    <!-- Номер -->
+                    <text x="${cx}" y="131" text-anchor="middle" fill="#cbd5e1" font-size="13" font-weight="700">№${i + 1}</text>
+                  </g>
+                `;
+              }).join('')}
+            </svg>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <span class="text-sm font-bold px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700">
+              Сделано ходов: <span class="text-[#a51c30]">${w1State.moves}</span>
+            </span>
+            ${allOn ? `<span class="text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 pop-in">✨ Все фонари горят! Можно ли за меньшее число ходов?</span>` : ''}
+            <button onclick="resetWidget1()" class="text-xs font-bold px-3.5 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 cursor-pointer">
+              Сбросить
+            </button>
+          </div>
+        </div>
+      `;
+    }
+    function clickLantern(idx) {
+      w1State.moves++;
+      [idx - 1, idx, idx + 1].forEach(i => {
+        if (i >= 0 && i < 5) w1State.lights[i] = !w1State.lights[i];
+      });
+      renderWidget1();
+    }
+    function resetWidget1() {
+      w1State.lights = [false, false, false, false, false];
+      w1State.moves = 0;
+      renderWidget1();
+    }
+
+    // --- ВИДЖЕТ 2: Сад Беркли ---
+    const w2State = { pair1: false, pair2: false };
+    function renderWidget2() {
+      const container = document.getElementById('widget-2');
+      // Сетка 5x5: клетка 44px, отступ 30px -> 220px
+      const cell = 44;
+      const ox = 34, oy = 24;
+      const pt = (x, y) => `${ox + x * cell},${oy + (5 - y) * cell}`;
+      let gridLines = '';
+      for (let i = 0; i <= 5; i++) {
+        gridLines += `<line x1="${ox + i * cell}" y1="${oy}" x2="${ox + i * cell}" y2="${oy + 5 * cell}" stroke="#cbd5e1" stroke-width="1"/>`;
+        gridLines += `<line x1="${ox}" y1="${oy + i * cell}" x2="${ox + 5 * cell}" y2="${oy + i * cell}" stroke="#cbd5e1" stroke-width="1"/>`;
+      }
+      const p1Fill = w2State.pair1 ? '#f59e0b' : '#e2e8f0';
+      const p2Fill = w2State.pair2 ? '#0ea5e9' : '#e2e8f0';
+      container.innerHTML = `
+        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+          <svg viewBox="0 0 290 275" class="w-full max-w-[280px] h-auto select-none">
+            <!-- Большой квадрат 5x5 -->
+            <rect x="${ox}" y="${oy}" width="${5 * cell}" height="${5 * cell}" fill="#ffffff" stroke="#003262" stroke-width="2.5"/>
+            <!-- 4 угловых треугольника -->
+            <!-- Нижний левый: (0,0)-(2,0)-(0,3) [Пара 1] -->
+            <polygon points="${pt(0,0)} ${pt(2,0)} ${pt(0,3)}" fill="${p1Fill}" fill-opacity="${w2State.pair1 ? 0.55 : 0.45}" stroke="#64748b" stroke-width="1.5" class="cursor-pointer transition" onclick="toggleW2Pair(1)"/>
+            <!-- Верхний правый: (5,5)-(3,5)-(5,2) [Пара 1] -->
+            <polygon points="${pt(5,5)} ${pt(3,5)} ${pt(5,2)}" fill="${p1Fill}" fill-opacity="${w2State.pair1 ? 0.55 : 0.45}" stroke="#64748b" stroke-width="1.5" class="cursor-pointer transition" onclick="toggleW2Pair(1)"/>
+            <!-- Нижний правый: (5,0)-(2,0)-(5,2) [Пара 2] -->
+            <polygon points="${pt(5,0)} ${pt(2,0)} ${pt(5,2)}" fill="${p2Fill}" fill-opacity="${w2State.pair2 ? 0.55 : 0.45}" stroke="#64748b" stroke-width="1.5" class="cursor-pointer transition" onclick="toggleW2Pair(2)"/>
+            <!-- Верхний левый: (0,5)-(3,5)-(0,3) [Пара 2] -->
+            <polygon points="${pt(0,5)} ${pt(3,5)} ${pt(0,3)}" fill="${p2Fill}" fill-opacity="${w2State.pair2 ? 0.55 : 0.45}" stroke="#64748b" stroke-width="1.5" class="cursor-pointer transition" onclick="toggleW2Pair(2)"/>
+
+            <!-- Сетка поверх -->
+            ${gridLines}
+
+            <!-- Повёрнутый квадрат -->
+            <polygon points="${pt(2,0)} ${pt(5,2)} ${pt(3,5)} ${pt(0,3)}" fill="#0f766e" fill-opacity="0.28" stroke="#0f766e" stroke-width="3"/>
+
+            <!-- Вершины -->
+            ${[[2,0],[5,2],[3,5],[0,3]].map(([x,y]) => `<circle cx="${ox + x * cell}" cy="${oy + (5 - y) * cell}" r="4.5" fill="#003262"/>`).join('')}
+
+            <!-- Подписи сторон -->
+            <text x="${ox + 1 * cell}" y="${oy + 5 * cell + 18}" text-anchor="middle" font-size="12" font-weight="700" fill="#003262">2 см</text>
+            <text x="${ox + 3.5 * cell}" y="${oy + 5 * cell + 18}" text-anchor="middle" font-size="12" font-weight="700" fill="#003262">3 см</text>
+            <text x="${ox - 16}" y="${oy + 3.5 * cell + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#003262">3</text>
+            <text x="${ox - 16}" y="${oy + 1 * cell + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#003262">2</text>
+          </svg>
+
+          <div class="max-w-xs space-y-3 text-xs sm:text-sm text-slate-600">
+            <p class="font-semibold text-slate-800">Нажимай на угловые треугольники на чертеже или на кнопки ниже:</p>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="toggleW2Pair(1)" class="px-3 py-1.5 rounded-lg font-bold border cursor-pointer transition ${w2State.pair1 ? 'bg-amber-100 border-amber-400 text-amber-900' : 'bg-white border-slate-300 text-slate-700'}">
+                ${w2State.pair1 ? '✓ ' : ''}Пара 1 (прямоугольник 2×3)
+              </button>
+              <button onclick="toggleW2Pair(2)" class="px-3 py-1.5 rounded-lg font-bold border cursor-pointer transition ${w2State.pair2 ? 'bg-sky-100 border-sky-400 text-sky-900' : 'bg-white border-slate-300 text-slate-700'}">
+                ${w2State.pair2 ? '✓ ' : ''}Пара 2 (прямоугольник 2×3)
+              </button>
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs leading-relaxed">
+              Два одинаковых прямоугольных треугольника с катетами <strong>2</strong> и <strong>3</strong> вместе складываются в один прямоугольник <strong>2×3</strong>!
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    function toggleW2Pair(num) {
+      if (num === 1) w2State.pair1 = !w2State.pair1;
+      else w2State.pair2 = !w2State.pair2;
+      renderWidget2();
+    }
+
+    // --- ВИДЖЕТ 3: Весы Принстона ---
+    const w3State = { pyramids: 1 };
+    function drawShape(type, x, y) {
+      if (type === 'cube') {
+        return `<rect x="${x - 10}" y="${y - 20}" width="20" height="20" rx="3" fill="#003262" stroke="#1e293b" stroke-width="1.5"/>`;
+      }
+      if (type === 'sphere') {
+        return `<circle cx="${x}" cy="${y - 10}" r="10" fill="#e77500" stroke="#9a3412" stroke-width="1.5"/>`;
+      }
+      // pyramid
+      return `<polygon points="${x},${y - 20} ${x - 10},${y} ${x + 10},${y}" fill="#0f766e" stroke="#115e59" stroke-width="1.5"/>`;
+    }
+    function drawScaleSVG(title, leftShapes, rightShapes, isQuestion = false) {
+      const renderPan = (shapes, cx) => {
+        const spacing = 22;
+        const startX = cx - ((shapes.length - 1) * spacing) / 2;
+        return shapes.map((s, idx) => drawShape(s, startX + idx * spacing, 56)).join('');
+      };
+      return `
+        <div class="bg-white border ${isQuestion ? 'border-amber-300 ring-2 ring-amber-100' : 'border-slate-200'} rounded-xl p-3 flex flex-col items-center">
+          <span class="text-xs font-bold ${isQuestion ? 'text-amber-800' : 'text-slate-600'} mb-1">${title}</span>
+          <svg viewBox="0 0 240 100" class="w-full max-w-[230px] h-auto">
+            <!-- Основание весов -->
+            <polygon points="120,66 108,92 132,92" fill="#475569"/>
+            <rect x="92" y="92" width="56" height="5" rx="2.5" fill="#334155"/>
+            <!-- Коромысло -->
+            <line x1="48" y1="64" x2="192" y2="64" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+            <!-- Чаши -->
+            <line x1="16" y1="58" x2="96" y2="58" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+            <line x1="144" y1="58" x2="224" y2="58" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+            <line x1="56" y1="58" x2="56" y2="64" stroke="#64748b" stroke-width="2.5"/>
+            <line x1="184" y1="58" x2="184" y2="64" stroke="#64748b" stroke-width="2.5"/>
+            <!-- Центр -->
+            <circle cx="120" cy="64" r="9" fill="${isQuestion ? '#f59e0b' : '#10b981'}"/>
+            <text x="120" y="68" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="800">${isQuestion ? '?' : '='}</text>
+            <!-- Фигуры -->
+            ${renderPan(leftShapes, 56)}
+            ${renderPan(rightShapes, 184)}
+          </svg>
+        </div>
+      `;
+    }
+    function renderWidget3() {
+      const container = document.getElementById('widget-3');
+      const rightPyramids = Array.from({ length: w3State.pyramids }, () => 'pyramid');
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-600">
+            <span class="inline-flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded bg-[#003262] inline-block"></span> Куб</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded-full bg-[#e77500] inline-block"></span> Шар</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-b-[13px] border-b-[#0f766e] inline-block"></span> Пирамида</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            ${drawScaleSVG('Весы №1 (равновесие)', ['cube', 'cube', 'sphere'], ['pyramid', 'pyramid', 'pyramid', 'pyramid', 'pyramid'], false)}
+            ${drawScaleSVG('Весы №2 (равновесие)', ['cube'], ['sphere', 'pyramid'], false)}
+            <div>
+              ${drawScaleSVG('Твоя гипотеза: 1 Куб = ?', ['cube'], rightPyramids, true)}
+              <div class="flex items-center justify-center gap-2 mt-2">
+                <button onclick="changeW3(-1)" class="w-8 h-8 rounded-lg bg-slate-200 hover:bg-slate-300 font-extrabold text-slate-800 cursor-pointer">−</button>
+                <span class="text-xs font-bold text-slate-700 px-2">Пирамид: ${w3State.pyramids}</span>
+                <button onclick="changeW3(1)" class="w-8 h-8 rounded-lg bg-slate-200 hover:bg-slate-300 font-extrabold text-slate-800 cursor-pointer">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    function changeW3(delta) {
+      w3State.pyramids = Math.max(1, Math.min(5, w3State.pyramids + delta));
+      renderWidget3();
+    }
+
+    // --- ВИДЖЕТ 4: Цифровой замок Стэнфорда ---
+    const w4State = { A: 0, B: 0 };
+    function renderWidget4() {
+      const container = document.getElementById('widget-4');
+      const code = `3${w4State.A}5${w4State.B}`;
+      const wheel = (label, val, fixed, key) => `
+        <div class="flex flex-col items-center gap-1.5">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">${label}</span>
+          ${!fixed ? `<button onclick="stepW4('${key}', 1)" class="w-11 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm cursor-pointer">▲</button>` : `<div class="h-7"></div>`}
+          <div class="w-14 h-16 rounded-xl flex items-center justify-center text-3xl font-extrabold font-mono shadow-inner ${fixed ? 'bg-slate-800 text-slate-300 border border-slate-700' : 'bg-amber-50 text-slate-900 border-2 border-amber-400'}">
+            ${val}
+          </div>
+          ${!fixed ? `<button onclick="stepW4('${key}', -1)" class="w-11 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm cursor-pointer">▼</button>` : `<div class="h-7"></div>`}
+        </div>
+      `;
+      container.innerHTML = `
+        <div class="flex flex-col items-center gap-4">
+          <div class="bg-slate-900 rounded-2xl px-5 py-5 sm:px-8 flex items-center gap-3 sm:gap-4 shadow-lg">
+            ${wheel('1-я', 3, true, '')}
+            ${wheel('Цифра A', w4State.A, false, 'A')}
+            ${wheel('3-я', 5, true, '')}
+            ${wheel('Цифра B', w4State.B, false, 'B')}
+          </div>
+          <div class="text-sm font-bold text-slate-700 bg-white px-4 py-2 rounded-xl border border-slate-200">
+            Текущее число на замке: <span class="font-mono text-lg text-[#8c1515] ml-1">${code}</span>
+          </div>
+        </div>
+      `;
+    }
+    function stepW4(key, delta) {
+      w4State[key] = (w4State[key] + delta + 10) % 10;
+      renderWidget4();
+    }
+
+    // --- ВИДЖЕТ 5: Мосты Карнеги — Меллона ---
+    const W5_EDGES = [
+      { id: 'AB1', from: 'A', to: 'B', label: '1', path: 'M 70 110 Q 145 30 220 55', lx: 145, ly: 50 },
+      { id: 'AB2', from: 'A', to: 'B', label: '2', path: 'M 70 110 Q 155 85 220 55', lx: 152, ly: 93 },
+      { id: 'AC1', from: 'A', to: 'C', label: '3', path: 'M 70 110 Q 145 170 220 175', lx: 145, ly: 168 },
+      { id: 'BC1', from: 'B', to: 'C', label: '4', path: 'M 220 55 L 220 175', lx: 235, ly: 118 },
+      { id: 'BD1', from: 'B', to: 'D', label: '5', path: 'M 220 55 Q 315 20 390 110', lx: 315, ly: 43 },
+      { id: 'BD2', from: 'B', to: 'D', label: '6', path: 'M 220 55 Q 300 95 390 110', lx: 300, ly: 96 },
+      { id: 'CD1', from: 'C', to: 'D', label: '7', path: 'M 220 175 Q 300 125 390 110', lx: 298, ly: 132 },
+      { id: 'CD2', from: 'C', to: 'D', label: '8', path: 'M 220 175 Q 315 160 390 110', lx: 312, ly: 162 },
+      { id: 'CD3', from: 'C', to: 'D', label: '9', path: 'M 220 175 Q 335 205 390 110', lx: 332, ly: 192 }
+    ];
+    const w5State = { current: 'A', trail: [], found: new Set() };
+    function renderWidget5() {
+      const container = document.getElementById('widget-5');
+      const nodes = { A: [70, 110], B: [220, 55], C: [220, 175], D: [390, 110] };
+      container.innerHTML = `
+        <div class="flex flex-col items-center gap-3">
+          <p class="text-xs text-slate-600 text-center">
+            Кликай по доступным дорожкам (подсвечены синим), чтобы пройти от <strong>A</strong> до <strong>D</strong>. Каждый новый маршрут засчитывается!
+          </p>
+          <svg viewBox="0 0 460 220" class="w-full max-w-lg h-auto bg-white rounded-xl border border-slate-200 select-none">
+            <defs>
+              <marker id="arr-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+              </marker>
+              <marker id="arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"/>
+              </marker>
+              <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f766e"/>
+              </marker>
+            </defs>
+
+            ${W5_EDGES.map(e => {
+              const isSelected = w5State.trail.includes(e.id);
+              const isAvailable = e.from === w5State.current;
+              const stroke = isSelected ? '#0f766e' : isAvailable ? '#2563eb' : '#cbd5e1';
+              const marker = isSelected ? 'url(#arr-green)' : isAvailable ? 'url(#arr-blue)' : 'url(#arr-gray)';
+              return `
+                <g onclick="${isAvailable ? `pickEdgeW5('${e.id}')` : ''}" class="${isAvailable ? 'cursor-pointer' : ''}">
+                  <path d="${e.path}" fill="none" stroke="transparent" stroke-width="18"/>
+                  <path d="${e.path}" fill="none" stroke="${stroke}" stroke-width="${isSelected ? 4 : isAvailable ? 3 : 2}" marker-end="${marker}"/>
+                  <circle cx="${e.lx}" cy="${e.ly}" r="10" fill="${isSelected ? '#0f766e' : isAvailable ? '#eff6ff' : '#f8fafc'}" stroke="${stroke}" stroke-width="1.5"/>
+                  <text x="${e.lx}" y="${e.ly + 4}" text-anchor="middle" font-size="10" font-weight="800" fill="${isSelected ? '#ffffff' : isAvailable ? '#1d4ed8' : '#64748b'}">${e.label}</text>
+                </g>
+              `;
+            }).join('')}
+
+            ${Object.entries(nodes).map(([name, [x, y]]) => {
+              const active = w5State.current === name;
+              return `
+                <g>
+                  <circle cx="${x}" cy="${y}" r="20" fill="${active ? '#b91c1c' : '#1e293b'}" stroke="#ffffff" stroke-width="3"/>
+                  <text x="${x}" y="${y + 6}" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">${name}</text>
+                </g>
+              `;
+            }).join('')}
+          </svg>
+
+          <div class="flex flex-wrap items-center justify-center gap-2.5">
+            <span class="text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-xl bg-white border border-slate-200">
+              Найдено уникальных путей: <span class="text-emerald-700">${w5State.found.size}</span>
+            </span>
+            <button onclick="resetW5Current()" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 cursor-pointer">
+              Начать путь заново (из A)
+            </button>
+            <button onclick="resetW5All()" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 cursor-pointer">
+              Очистить список
+            </button>
+          </div>
+          ${w5State.found.size > 0 ? `
+            <div class="flex flex-wrap justify-center gap-1.5 max-w-lg">
+              ${[...w5State.found].map(r => `<span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">${r}</span>`).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+    function pickEdgeW5(edgeId) {
+      const edge = W5_EDGES.find(e => e.id === edgeId);
+      if (!edge || edge.from !== w5State.current) return;
+      w5State.trail.push(edgeId);
+      w5State.current = edge.to;
+      if (w5State.current === 'D') {
+        const labels = w5State.trail.map(id => W5_EDGES.find(e => e.id === id).label).join('→');
+        w5State.found.add(`дорожки ${labels}`);
+      }
+      renderWidget5();
+    }
+    function resetW5Current() {
+      w5State.current = 'A';
+      w5State.trail = [];
+      renderWidget5();
+    }
+    function resetW5All() {
+      w5State.current = 'A';
+      w5State.trail = [];
+      w5State.found.clear();
+      renderWidget5();
+    }
+
+    // --- ВИДЖЕТ 6: Зеркальные часы Калтеха ---
+    const w6State = { h: 5, m: 50 };
+    function renderWidget6() {
+      const container = document.getElementById('widget-6');
+      const hh = String(w6State.h).padStart(2, '0');
+      const mm = String(w6State.m).padStart(2, '0');
+      const isPal = hh[0] === mm[1] && hh[1] === mm[0];
+      container.innerHTML = `
+        <div class="flex flex-col items-center gap-4">
+          <div class="px-8 py-4 rounded-2xl border-2 transition-all duration-300 ${isPal ? 'bg-slate-900 border-amber-400 shadow-[0_0_24px_rgba(251,191,36,0.45)]' : 'bg-slate-900 border-slate-700'}">
+            <div class="digital-clock text-4xl sm:text-5xl font-extrabold font-mono text-center ${isPal ? 'text-amber-300' : 'text-emerald-400'}">
+              ${hh}:${mm}
+            </div>
+            <div class="text-center mt-1.5 h-5">
+              ${isPal ? `<span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-900">✨ Палиндром!</span>` : `<span class="text-xs text-slate-400">Обычное время</span>`}
+            </div>
+          </div>
+
+          <div class="w-full max-w-md space-y-3 bg-white p-4 rounded-xl border border-slate-200">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold text-slate-600 w-16">Часы: ${hh}</span>
+              <input type="range" min="0" max="23" value="${w6State.h}" oninput="setW6('h', this.value)" class="flex-1 cursor-pointer"/>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold text-slate-600 w-16">Минуты: ${mm}</span>
+              <input type="range" min="0" max="59" value="${w6State.m}" oninput="setW6('m', this.value)" class="flex-1 cursor-pointer"/>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    function setW6(part, val) {
+      w6State[part] = Number(val);
+      renderWidget6();
+    }
+
+    // --- ВИДЖЕТ 7: Рыцари и Лжецы Йеля ---
+    const W7_PEOPLE = [
+      { name: 'Аня', quote: '«Среди нас ровно один Лжец».', color: '#e11d48', emoji: '👩‍🎓' },
+      { name: 'Боря', quote: '«Среди нас ровно два Лжеца».', color: '#2563eb', emoji: '🧑‍🎓' },
+      { name: 'Вика', quote: '«Боря и Глеб — оба Лжецы».', color: '#0f766e', emoji: '👧' },
+      { name: 'Глеб', quote: '«Аня — Рыцарь».', color: '#d97706', emoji: '👦' }
+    ];
+    // 0 = ?, 1 = Рыцарь, 2 = Лжец
+    const w7State = [0, 0, 0, 0];
+    function renderWidget7() {
+      const container = document.getElementById('widget-7');
+      const knights = w7State.filter(v => v === 1).length;
+      const liars = w7State.filter(v => v === 2).length;
+      const badge = (st) => {
+        if (st === 1) return `<span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold">🛡️ Рыцарь</span>`;
+        if (st === 2) return `<span class="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 border border-rose-300 text-xs font-bold">🎭 Лжец</span>`;
+        return `<span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold">❓ Нажми, чтобы выбрать</span>`;
+      };
+      container.innerHTML = `
+        <div class="space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            ${W7_PEOPLE.map((p, i) => `
+              <button onclick="cycleW7(${i})" class="text-left bg-white hover:bg-slate-50 border ${w7State[i] === 1 ? 'border-emerald-400 ring-2 ring-emerald-100' : w7State[i] === 2 ? 'border-rose-400 ring-2 ring-rose-100' : 'border-slate-200'} rounded-xl p-3.5 transition cursor-pointer flex flex-col justify-between gap-2.5">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="w-9 h-9 rounded-full flex items-center justify-center text-lg bg-slate-100">${p.emoji}</span>
+                    <span class="font-extrabold text-slate-900 text-sm">${p.name}</span>
+                  </div>
+                  <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-700 leading-snug">
+                    ${p.quote}
+                  </div>
+                </div>
+                <div>${badge(w7State[i])}</div>
+              </button>
+            `).join('')}
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-600 bg-white px-4 py-2 rounded-xl border border-slate-200">
+            <span>Твоя гипотеза: 🛡️ Рыцарей — ${knights}, 🎭 Лжецов — ${liars}</span>
+            <button onclick="resetW7()" class="text-slate-500 hover:text-slate-900 underline cursor-pointer">Сбросить роли</button>
+          </div>
+        </div>
+      `;
+    }
+    function cycleW7(i) {
+      w7State[i] = (w7State[i] + 1) % 3;
+      renderWidget7();
+    }
+    function resetW7() {
+      for (let i = 0; i < 4; i++) w7State[i] = 0;
+      renderWidget7();
+    }
+
+    // --- ВИДЖЕТ 8: Числовая змейка Ватерлоо ---
+    const w8State = { rows: 3 };
+    function renderWidget8() {
+      const container = document.getElementById('widget-8');
+      let rowsHTML = '';
+      for (let r = 1; r <= w8State.rows; r++) {
+        const isOdd = r % 2 === 1;
+        const start = (r - 1) * 4 + 1;
+        const nums = isOdd ? [start, start + 1, start + 2, start + 3] : [start + 3, start + 2, start + 1, start];
+        rowsHTML += `
+          <tr class="${isOdd ? 'bg-white' : 'bg-teal-50/50'}">
+            <td class="px-2.5 py-2 text-xs font-bold text-slate-500 border border-slate-200 whitespace-nowrap">
+              ${r}-я <span class="${isOdd ? 'text-teal-700' : 'text-amber-700'} ml-1">${isOdd ? '→' : '←'}</span>
+            </td>
+            ${nums.map(n => `
+              <td class="px-3 py-2 text-center font-mono font-bold text-sm border border-slate-200 ${n % 4 === 0 ? 'text-teal-800 bg-teal-100/50' : 'text-slate-800'}">
+                ${n}
+              </td>
+            `).join('')}
+          </tr>
+        `;
+      }
+      container.innerHTML = `
+        <div class="flex flex-col items-center gap-3">
+          <div class="w-full max-w-md overflow-x-auto">
+            <table class="w-full border-collapse rounded-xl overflow-hidden shadow-xs">
+              <thead>
+                <tr class="bg-[#0f766e] text-white text-xs">
+                  <th class="px-2.5 py-2 border border-teal-700 text-left">Строка</th>
+                  <th class="px-3 py-2 border border-teal-700">Ст. 1</th>
+                  <th class="px-3 py-2 border border-teal-700">Ст. 2</th>
+                  <th class="px-3 py-2 border border-teal-700">Ст. 3</th>
+                  <th class="px-3 py-2 border border-teal-700">Ст. 4</th>
+                </tr>
+              </thead>
+              <tbody>${rowsHTML}</tbody>
+            </table>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <button onclick="addRowW8()" ${w8State.rows >= 6 ? 'disabled' : ''} class="px-3.5 py-1.5 rounded-xl bg-[#0f766e] hover:bg-teal-800 disabled:opacity-40 text-white text-xs font-bold cursor-pointer">
+              + Добавить строку (${w8State.rows}/6)
+            </button>
+            <button onclick="resetW8()" class="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold cursor-pointer">
+              Сбросить
+            </button>
+          </div>
+        </div>
+      `;
+    }
+    function addRowW8() {
+      if (w8State.rows < 6) {
+        w8State.rows++;
+        renderWidget8();
+      }
+    }
+    function resetW8() {
+      w8State.rows = 3;
+      renderWidget8();
+    }
+
+    // --- ВИДЖЕТ 9: Тайна раскраски куба 4×4×4 (Изометрический SVG) ---
+    const w9State = { filter: 'all' };
+    function renderWidget9() {
+      const container = document.getElementById('widget-9');
+      // Рисуем 3 видимые грани 4x4x4 в изометрии (painter's order: ix + iy + iz)
+      const cx0 = 170, cy0 = 205;
+      const dx = 22, dy = 12.5, dz = 25;
+      const proj = (x, y, z) => [cx0 + (x - y) * dx, cy0 + (x + y) * dy - z * dz];
+
+      const cubes = [];
+      for (let ix = 0; ix < 4; ix++) {
+        for (let iy = 0; iy < 4; iy++) {
+          for (let iz = 0; iz < 4; iz++) {
+            // Видимы только кубики на внешних передних/верхней гранях
+            if (ix === 3 || iy === 3 || iz === 3) {
+              const painted = (ix === 0 || ix === 3 ? 1 : 0) + (iy === 0 || iy === 3 ? 1 : 0) + (iz === 0 || iz === 3 ? 1 : 0);
+              cubes.push({ ix, iy, iz, painted, depth: ix + iy + iz });
+            }
+          }
+        }
+      }
+      cubes.sort((a, b) => a.depth - b.depth);
+
+      const svgCubes = cubes.map(c => {
+        const match =
+          w9State.filter === 'all' ||
+          (w9State.filter === 'vertex' && c.painted === 3) ||
+          (w9State.filter === 'edge' && c.painted === 2) ||
+          (w9State.filter === 'face' && c.painted === 1);
+
+        const topFill = match ? (c.painted === 2 && w9State.filter === 'edge' ? '#f59e0b' : '#3b82f6') : '#e2e8f0';
+        const leftFill = match ? (c.painted === 2 && w9State.filter === 'edge' ? '#d97706' : '#1d4ed8') : '#cbd5e1';
+        const rightFill = match ? (c.painted === 2 && w9State.filter === 'edge' ? '#b45309' : '#2563eb') : '#d5dde7';
+        const op = match ? 1 : 0.35;
+
+        const p = (ax, ay, az) => proj(c.ix + ax, c.iy + ay, c.iz + az).join(',');
+        // Верхняя грань (z+1)
+        const fTop = `<polygon points="${p(0,0,1)} ${p(1,0,1)} ${p(1,1,1)} ${p(0,1,1)}" fill="${topFill}" stroke="#ffffff" stroke-width="1.2"/>`;
+        // Левая видимая грань (y+1)
+        const fLeft = `<polygon points="${p(0,1,0)} ${p(1,1,0)} ${p(1,1,1)} ${p(0,1,1)}" fill="${leftFill}" stroke="#ffffff" stroke-width="1.2"/>`;
+        // Правая видимая грань (x+1)
+        const fRight = `<polygon points="${p(1,0,0)} ${p(1,1,0)} ${p(1,1,1)} ${p(1,0,1)}" fill="${rightFill}" stroke="#ffffff" stroke-width="1.2"/>`;
+
+        return `<g opacity="${op}">${fTop}${fLeft}${fRight}</g>`;
+      }).join('');
+
+      const btns = [
+        { k: 'all', label: 'Все кубики' },
+        { k: 'vertex', label: 'Вершины (3 грани)' },
+        { k: 'edge', label: 'Рёбра без вершин (2 грани)' },
+        { k: 'face', label: 'Центры граней (1 грань)' }
+      ];
+
+      container.innerHTML = `
+        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+          <svg viewBox="0 0 340 275" class="w-full max-w-[300px] h-auto select-none">
+            ${svgCubes}
+          </svg>
+          <div class="flex flex-col gap-2 max-w-xs w-full">
+            <span class="text-xs font-bold text-slate-600 mb-1">Подсветить тип кубиков:</span>
+            ${btns.map(b => `
+              <button onclick="setW9Filter('${b.k}')" class="px-3.5 py-2 rounded-xl text-left text-xs sm:text-sm font-bold border transition cursor-pointer ${w9State.filter === b.k ? 'bg-amber-600 text-white border-amber-700 shadow-xs' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}">
+                ${b.label}
+              </button>
+            `).join('')}
+            <p class="text-[11px] text-slate-500 mt-1">
+              На рисунке видны 3 передние грани куба, но не забудь посчитать и невидимые задние рёбра!
+            </p>
+          </div>
+        </div>
+      `;
+    }
+    function setW9Filter(f) {
+      w9State.filter = f;
+      renderWidget9();
+    }
+
+    // --- ВИДЖЕТ 10: Муравьи на линейке ---
+    const w10State = { t: 0, running: false, ghost: false, raf: null, lastTs: 0 };
+    // Расчёт позиций 3 муравьёв на момент времени t (до 20 сек)
+    // Исходно: A=20 (+1), B=45 (-1), C=70 (-1)
+    // Встреча A и B происходит в t = (45 - 20)/2 = 12.5 с, x = 32.5 см.
+    // До t=20 других встреч нет (т.к. B и C идут с одинаковой скоростью влево, а отскочивший вправо B в t=12.5 с из 32.5 встречает C из 70-12.5=57.5 в t = 12.5 + 25/2 = 25 с).
+    function getAntsAt(t, ghostMode) {
+      if (ghostMode) {
+        return [
+          { x: 20 + t, dir: 1, color: '#e11d48', name: '1' },
+          { x: 45 - t, dir: -1, color: '#2563eb', name: '2' },
+          { x: 70 - t, dir: -1, color: '#0f766e', name: '3' }
+        ];
+      }
+      if (t <= 12.5) {
+        return [
+          { x: 20 + t, dir: 1, color: '#e11d48', name: '1' },
+          { x: 45 - t, dir: -1, color: '#2563eb', name: '2' },
+          { x: 70 - t, dir: -1, color: '#0f766e', name: '3' }
+        ];
+      }
+      const dt = t - 12.5;
+      return [
+        { x: 32.5 - dt, dir: -1, color: '#e11d48', name: '1' },
+        { x: 32.5 + dt, dir: 1, color: '#2563eb', name: '2' },
+        { x: 70 - t, dir: -1, color: '#0f766e', name: '3' }
+      ];
+    }
+    function renderWidget10() {
+      const container = document.getElementById('widget-10');
+      const ants = getAntsAt(w10State.t, w10State.ghost);
+      const mapX = cm => 30 + (cm / 100) * 440;
+      const ticks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+      container.innerHTML = `
+        <div class="flex flex-col items-center gap-3">
+          <svg viewBox="0 0 500 115" class="w-full max-w-xl h-auto bg-white rounded-xl border border-slate-200 select-none">
+            <!-- Линейка -->
+            <rect x="30" y="62" width="440" height="22" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+            ${ticks.map(cm => `
+              <line x1="${mapX(cm)}" y1="62" x2="${mapX(cm)}" y2="70" stroke="#92400e" stroke-width="1.5"/>
+              <text x="${mapX(cm)}" y="100" text-anchor="middle" font-size="10" font-weight="700" fill="#64748b">${cm}</text>
+            `).join('')}
+
+            <!-- Муравьи -->
+            ${ants.map(a => {
+              const cx = mapX(a.x);
+              const arrow = a.dir > 0 ? `M${cx + 12} 42 L${cx + 22} 42 M${cx + 18} 38 L${cx + 22} 42 L${cx + 18} 46` : `M${cx - 12} 42 L${cx - 22} 42 M${cx - 18} 38 L${cx - 22} 42 L${cx - 18} 46`;
+              return `
+                <g opacity="${w10State.ghost ? 0.78 : 1}">
+                  <circle cx="${cx}" cy="44" r="10" fill="${a.color}" stroke="#ffffff" stroke-width="2"/>
+                  <text x="${cx}" y="48" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800">${a.name}</text>
+                  <path d="${arrow}" stroke="${a.color}" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+              `;
+            }).join('')}
+          </svg>
+
+          <div class="flex flex-wrap items-center justify-center gap-2.5">
+            <span class="font-mono text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl bg-white border border-slate-200">
+              Время: ${w10State.t.toFixed(1)} / 20.0 с
+            </span>
+            <button onclick="toggleW10Run()" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold cursor-pointer">
+              ${w10State.running ? '⏸ Пауза' : (w10State.t >= 20 ? '↺ Заново (20 с)' : '▶ Запустить на 20 с')}
+            </button>
+            <button onclick="resetW10()" class="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold cursor-pointer">
+              Сбросить
+            </button>
+            <label class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white px-3 py-1.5 rounded-xl border border-slate-200 cursor-pointer">
+              <input type="checkbox" ${w10State.ghost ? 'checked' : ''} onchange="toggleW10Ghost(this.checked)" class="accent-amber-600"/>
+              Показать как «призраков»
+            </label>
+          </div>
+          <p class="text-[11px] text-slate-500 text-center max-w-lg">
+            Обрати внимание на отметку 12.5 с: в режиме «призраков» точки муравьёв находятся в тех же самых местах, что и при развороте!
+          </p>
+        </div>
+      `;
+    }
+    function toggleW10Run() {
+      if (w10State.t >= 20) w10State.t = 0;
+      w10State.running = !w10State.running;
+      if (w10State.running) {
+        w10State.lastTs = performance.now();
+        w10State.raf = requestAnimationFrame(stepW10);
+      } else if (w10State.raf) {
+        cancelAnimationFrame(w10State.raf);
+      }
+      renderWidget10();
+    }
+    function stepW10(ts) {
+      if (!w10State.running) return;
+      const dt = (ts - w10State.lastTs) / 1000;
+      w10State.lastTs = ts;
+      w10State.t = Math.min(20, w10State.t + dt * 3.2); // слегка ускорено для удобства наблюдения
+      renderWidget10();
+      if (w10State.t >= 20) {
+        w10State.running = false;
+        renderWidget10();
+        return;
+      }
+      w10State.raf = requestAnimationFrame(stepW10);
+    }
+    function resetW10() {
+      w10State.running = false;
+      if (w10State.raf) cancelAnimationFrame(w10State.raf);
+      w10State.t = 0;
+      renderWidget10();
+    }
+    function toggleW10Ghost(checked) {
+      w10State.ghost = checked;
+      renderWidget10();
+    }
+
+    // --- ВИДЖЕТ 11: Карточки с суммой 21 ---
+    const w11State = { selected: new Set() };
+    function renderWidget11() {
+      const container = document.getElementById('widget-11');
+      const conflicts = new Set();
+      let conflictPair = null;
+      for (const n of w11State.selected) {
+        const pair = 21 - n;
+        if (w11State.selected.has(pair)) {
+          conflicts.add(n);
+          conflicts.add(pair);
+          if (!conflictPair) conflictPair = [Math.min(n, pair), Math.max(n, pair)];
+        }
+      }
+      container.innerHTML = `
+        <div class="space-y-3">
+          <p class="text-xs text-slate-600 text-center">
+            Попробуй выбрать как можно больше карточек так, чтобы ни у каких двух сумма не была равна <strong>21</strong>!
+          </p>
+          <div class="grid grid-cols-5 sm:grid-cols-10 gap-2 max-w-2xl mx-auto">
+            ${Array.from({ length: 20 }, (_, i) => i + 1).map(n => {
+              const sel = w11State.selected.has(n);
+              const bad = conflicts.has(n);
+              let cls = 'bg-white border-slate-300 text-slate-800 hover:bg-slate-50';
+              if (bad) cls = 'bg-rose-600 border-rose-700 text-white shadow-md shake-anim';
+              else if (sel) cls = 'bg-emerald-600 border-emerald-700 text-white shadow-sm';
+              return `
+                <button onclick="toggleW11(${n})" class="h-11 rounded-xl border-2 font-extrabold text-sm transition cursor-pointer ${cls}">
+                  ${n}
+                </button>
+              `;
+            }).join('')}
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <span class="text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-xl bg-white border border-slate-200">
+              Выбрано карточек: <span class="text-emerald-700">${w11State.selected.size}</span>
+            </span>
+            ${conflictPair ? `<span class="text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl bg-rose-100 text-rose-800 border border-rose-300">💥 Найдена пара: ${conflictPair[0]} + ${conflictPair[1]} = 21!</span>` : ''}
+            <button onclick="resetW11()" class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 cursor-pointer">
+              Сбросить
+            </button>
+          </div>
+        </div>
+      `;
+    }
+    function toggleW11(n) {
+      if (w11State.selected.has(n)) w11State.selected.delete(n);
+      else w11State.selected.add(n);
+      renderWidget11();
+    }
+    function resetW11() {
+      w11State.selected.clear();
+      renderWidget11();
+    }
+
+    // --- ВИДЖЕТ 12: Шоколадка Guts Round (интерактивная 3×4 + схема 5×6) ---
+    const w12State = {
+      pieces: [{ id: 1, x: 0, y: 0, w: 4, h: 3, ox: 0, oy: 0 }],
+      breaks: 0,
+      nextId: 2
+    };
+    function renderWidget12() {
+      const container = document.getElementById('widget-12');
+      const cell = 38;
+      const padX = 28, padY = 22;
+      const done = w12State.pieces.every(p => p.w === 1 && p.h === 1);
+
+      const piecesSVG = w12State.pieces.map(p => {
+        const px = padX + p.x * cell + p.ox;
+        const py = padY + p.y * cell + p.oy;
+        let squares = '';
+        for (let r = 0; r < p.h; r++) {
+          for (let c = 0; c < p.w; c++) {
+            const sx = px + c * cell;
+            const sy = py + r * cell;
+            squares += `
+              <rect x="${sx + 1}" y="${sy + 1}" width="${cell - 2}" height="${cell - 2}" rx="4" fill="#6b3e26" stroke="#4a2816" stroke-width="1.5"/>
+              <rect x="${sx + 6}" y="${sy + 6}" width="${cell - 12}" height="${cell - 12}" rx="2" fill="#7c4a2d" stroke="#8f5838" stroke-width="1"/>
+            `;
+          }
+        }
+        // Кликабельные линии разлома внутри куска
+        let cuts = '';
+        for (let c = 1; c < p.w; c++) {
+          const lx = px + c * cell;
+          cuts += `
+            <g class="choc-cut-line" onclick="breakChoc(${p.id}, 'v', ${c})">
+              <line x1="${lx}" y1="${py}" x2="${lx}" y2="${py + p.h * cell}" stroke="transparent" stroke-width="12"/>
+              <line class="cut-visual" x1="${lx}" y1="${py + 2}" x2="${lx}" y2="${py + p.h * cell - 2}" stroke="#fde68a" stroke-width="2" stroke-dasharray="4 3" opacity="0.55"/>
+            </g>
+          `;
+        }
+        for (let r = 1; r < p.h; r++) {
+          const ly = py + r * cell;
+          cuts += `
+            <g class="choc-cut-line" onclick="breakChoc(${p.id}, 'h', ${r})">
+              <line x1="${px}" y1="${ly}" x2="${px + p.w * cell}" y2="${ly}" stroke="transparent" stroke-width="12"/>
+              <line class="cut-visual" x1="${px + 2}" y1="${ly}" x2="${px + p.w * cell - 2}" y2="${ly}" stroke="#fde68a" stroke-width="2" stroke-dasharray="4 3" opacity="0.55"/>
+            </g>
+          `;
+        }
+        return `<g>${squares}${cuts}</g>`;
+      }).join('');
+
+      // Мини-схема большой плитки 5×6 из условия
+      let bigSquares = '';
+      for (let r = 0; r < 5; r++) {
+        for (let c = 0; c < 6; c++) {
+          bigSquares += `<rect x="${12 + c * 22}" y="${12 + r * 22}" width="20" height="20" rx="3" fill="#6b3e26" stroke="#4a2816" stroke-width="1"/>`;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-center">
+          <div class="lg:col-span-2 flex flex-col items-center gap-3">
+            <p class="text-xs text-slate-600 text-center">
+              <strong>Тренировочная плитка 3×4:</strong> нажимай на пунктирные линии, чтобы ломать куски!
+            </p>
+            <svg viewBox="0 0 260 190" class="w-full max-w-[290px] h-auto bg-white rounded-xl border border-slate-200 select-none">
+              ${piecesSVG}
+            </svg>
+            <div class="flex flex-wrap items-center justify-center gap-2.5">
+              <span class="text-xs font-bold px-3 py-1.5 rounded-xl bg-white border border-slate-200">
+                Разломов: <span class="text-amber-700">${w12State.breaks}</span>
+              </span>
+              <span class="text-xs font-bold px-3 py-1.5 rounded-xl bg-white border border-slate-200">
+                Кусков сейчас: <span class="text-emerald-700">${w12State.pieces.length}</span> / 12
+              </span>
+              <button onclick="resetW12()" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 cursor-pointer">
+                Новая плитка 3×4
+              </button>
+            </div>
+            ${done ? `<div class="text-xs font-bold px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 pop-in">🍫 Готово! Для 12 долек вышло ровно ${w12State.breaks} разломов. А сколько будет для 5×6?</div>` : ''}
+          </div>
+
+          <!-- Схема плитки 5×6 из условия -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 flex flex-col items-center">
+            <span class="text-xs font-bold text-slate-700 mb-2">Плитка из задачи (5×6)</span>
+            <svg viewBox="0 0 156 134" class="w-40 h-auto">
+              ${bigSquares}
+            </svg>
+            <span class="text-[11px] text-slate-500 mt-1.5">5 рядов × 6 долек</span>
+          </div>
+        </div>
+      `;
+    }
+    function breakChoc(pieceId, dir, splitAt) {
+      const idx = w12State.pieces.findIndex(p => p.id === pieceId);
+      if (idx === -1) return;
+      const p = w12State.pieces[idx];
+      w12State.pieces.splice(idx, 1);
+      w12State.breaks++;
+      const gap = 7;
+      if (dir === 'v') {
+        w12State.pieces.push(
+          { id: w12State.nextId++, x: p.x, y: p.y, w: splitAt, h: p.h, ox: p.ox - gap / 2, oy: p.oy },
+          { id: w12State.nextId++, x: p.x + splitAt, y: p.y, w: p.w - splitAt, h: p.h, ox: p.ox + gap / 2, oy: p.oy }
+        );
+      } else {
+        w12State.pieces.push(
+          { id: w12State.nextId++, x: p.x, y: p.y, w: p.w, h: splitAt, ox: p.ox, oy: p.oy - gap / 2 },
+          { id: w12State.nextId++, x: p.x, y: p.y + splitAt, w: p.w, h: p.h - splitAt, ox: p.ox, oy: p.oy + gap / 2 }
+        );
+      }
+      renderWidget12();
+    }
+    function resetW12() {
+      w12State.pieces = [{ id: 1, x: 0, y: 0, w: 4, h: 3, ox: 0, oy: 0 }];
+      w12State.breaks = 0;
+      w12State.nextId = 2;
+      renderWidget12();
+    }
+
+    // =========================================================================
+    // 7. ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      renderUniversities();
+      renderAllProblemCards();
+
+      // Восстановление прогресса (если доступно localStorage)
+      try {
+        const saved = JSON.parse(localStorage.getItem('olymp6_solved') || '[]');
+        if (Array.isArray(saved)) {
+          saved.forEach(id => {
+            solvedSet.add(id);
+            const b = document.getElementById(`solved-badge-${id}`);
+            if (b) b.classList.remove('hidden');
+          });
+          updateProgress();
+        }
+      } catch (e) {}
+
+      // Инициализируем все 12 интерактивных лабораторий
+      renderWidget1();
+      renderWidget2();
+      renderWidget3();
+      renderWidget4();
+      renderWidget5();
+      renderWidget6();
+      renderWidget7();
+      renderWidget8();
+      renderWidget9();
+      renderWidget10();
+      renderWidget11();
+      renderWidget12();
+
+      startTimer();
+    });
+  </script>
+</body>
+</html>
